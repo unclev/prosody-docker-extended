@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER Victor Kulichenko <onclev@gmail.com>
-ARG PROSODY_VERSION
-ENV PROSODY_VERSION=${PROSODY_VERSION} \
+#ARG PROSODY_VERSION
+ENV PROSODY_VERSION="-0.9" \
     PUID=${PUID:-1000} PGID=${PGID:-1000} \
     PROSODY_MODULES=/usr/lib/prosody/modules-community \
     CUSTOM_MODULES=/usr/lib/prosody/modules-custom
