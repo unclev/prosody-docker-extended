@@ -27,6 +27,7 @@ RUN set -x \
  && perl -i -pe '$_ = qq[\n-- These paths are searched in the order specified, and before the default path\nplugin_paths = { \"$ENV{CUSTOM_MODULES}\", \"$ENV{PROSODY_MODULES}\" }\n\n$_] if $_ eq qq[modules_enabled = {\n]' \
          /etc/prosody/prosody.cfg.lua \
  && perl -i -pe 'BEGIN{undef $/;} s/^log = {.*?^}$/log = {\n    {levels = {min = "info"}, to = "console"};\n}/smg' /etc/prosody/prosody.cfg.lua \
+ && mkdir /var/run/prosody && chown prosody:adm /var/run/prosody \
  && cp -Rv /etc/prosody /etc/prosody.default && chown prosody:prosody -Rv /etc/prosody /etc/prosody.default \
  && mkdir -p "$PROSODY_MODULES" && chown prosody:prosody -R "$PROSODY_MODULES" && mkdir -p "$CUSTOM_MODULES" && chown prosody:prosody -R "$CUSTOM_MODULES" \
  && chmod 755 /entrypoint.sh /usr/bin/update-modules
