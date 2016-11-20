@@ -19,7 +19,7 @@ RUN set -x \
  && apt-get update -qq \
  && apt-get install -qy telnet \
     apt-utils mercurial lua-sec lua-event lua-zlib lua-ldap \
-    lua-dbi-mysql lua-dbi-postgresql lua-dbi-sqlite3 \
+    lua-dbi-mysql lua-dbi-postgresql lua-dbi-sqlite3 lua-bitop \
     prosody${PROSODY_VERSION} \
  && apt-get purge apt-utils -qy \
  && apt-get clean && rm -Rf /var/lib/apt/lists \
