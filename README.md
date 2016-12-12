@@ -47,7 +47,7 @@ Volumes can be mounted at the following locations for adding in files:
 * __/usr/lib/prosody/modules-community__:
   * Location for including community modules
   * Note: The image has it pre-configured in the config file, the [starter](https://github.com/unclev/prosody-docker-extended/blob/master/entrypoint.sh#L21-L22) clones https://hg.prosody.im/prosody-modules/ into this location if it is empty.
-* __/usr/lib/prosody/modules-community__:
+* __/usr/lib/prosody/modules-custom__:
   * Location for including additional modules
   * The image has the modules locations pre-configured as per [installing_modules](http://prosody.im/doc/installing_modules#paths) at the Prosody web site.
 
@@ -118,7 +118,7 @@ xmpp_server:
 ### Starting the container shell
 Connect to a linux shell of a running __prosody-docker-extended__ container (or any other executable resides in the container) is easy:
 ```bash
-docker exec -it prosody_xmpp_server 
+docker exec -it prosody_xmpp_server bash
 ```
 or with docker-compose
 ```bash
@@ -171,7 +171,7 @@ For information on community modules address the Prosody documentation: [communi
 
 The __prosody-docker-extended__ image comes with [Mercurial SCM](https://www.mercurial-scm.org/) installed in it. 
 The container clones https://hg.prosody.im/prosody-modules/ into `/usr/lib/prosody/modules-community` when it starts in the name of the *prosody* user. 
-Normally you should map `/usr/lib/prosody/modules-community` to a some persistent location (on your docker host or a data container).
+Normally you should map `/usr/lib/prosody/modules-community` to a persistent location (on your docker host or a data container).
 
 Even though the repository support within the image is very limited by (some modules may add files into their folders within the repo, which may prevent the repo from being updated). However, you can control [community modules](https://hg.prosody.im/prosody-modules/) from the container shell.
 ```
@@ -198,7 +198,7 @@ The __prosody-docker-extended__ image is configured to look for modules under th
 The Prosody server within the __prosody-docker-extended__ image is configured to log to "console" (see [advanced_logging](https://prosody.im/doc/advanced_logging) in the Prosody documentation). 
 This prevents contamination of the newly created container with such garbage.
 
-Use mapping of `/var/log/prosody` directory  want set up logs in a persistent location (likely - your docker host).
+Use mapping of `/var/log/prosody` directory want set up logs in a persistent location (likely - your docker host).
 
 There is an example in [Information for packagers - logging](https://prosody.im/doc/packagers#logging) in the Prosody documentation. 
 ```lua
@@ -210,9 +210,9 @@ log = {
         { levels = { min =  "info" }, to = "file", filename = "/var/log/prosody/prosody.log" };
     }
 ```
-__Log rotation__ is pupossed to be set up on your docker host. The prosody-docker-extended image itself does not suppot log rotation.
+__Log rotation__ is supposed to be set up on your docker host. The prosody-docker-extended image itself does not support log rotation.
 
 ## Configuring Prosody IM server
 Configuring Prosody IM XMPP communication server resided within the __prosody-docker-extended__ container is generally the same as configuring a standalone Prosody IM server, 
-but please dont forget specifying internal container paths, - not the external mapped paths, in the prosody config.
+but please don't forget specifying internal container paths, - not the external mapped paths, in the prosody config.
 Please see the official Prosody IM documentation on [configuring Prosody](https://prosody.im/doc/configure).
