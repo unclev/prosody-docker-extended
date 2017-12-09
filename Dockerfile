@@ -8,10 +8,14 @@ ARG PROSODY_VERSION
 ENV PROSODY_VERSION=${PROSODY_VERSION} \
     PUID=${PUID:-1000} PGID=${PGID:-1000} \
     PROSODY_MODULES=/usr/lib/prosody/modules-community \
-    CUSTOM_MODULES=/usr/lib/prosody/modules-custom
+    CUSTOM_MODULES=/usr/lib/prosody/modules-custom \
+    PROSODY_MIGRATOR=""
 
 # create prosody user with uid and gid predefined
 RUN groupadd -g $PGID -r prosody && useradd -b /var/lib -m -g $PGID -u $PUID -r -s /bin/bash prosody
+
+# add prosody-migrator
+RUN test "${PROSODY_VERSION}" = "-0.10" -o "${PROSODY_VERSION}" = "-trunk" && PROSODY_MIGRATOR="prosody-migrator${PROSODY_VERSION}" || true
 
 # install prosody, mercurial, and recommended dependencies, prosody-modules locations, tweak and preserve config
 ADD https://prosody.im/files/prosody-debian-packages.key /root/key
@@ -21,7 +25,7 @@ RUN set -x \
  && apt-get install -qy telnet \
     apt-utils mercurial lua-sec lua-event lua-zlib lua-ldap \
     lua-dbi-mysql lua-dbi-postgresql lua-dbi-sqlite3 lua-bitop \
-    prosody${PROSODY_VERSION} \
+    ${PROSODY_MIGRATOR} prosody${PROSODY_VERSION} \
  && apt-get purge apt-utils -qy \
  && apt-get clean && rm -Rf /var/lib/apt/lists \
  && sed -i -e '1s/^/daemonize = false;\n/' -e 's/daemonize = true/-- daemonize = true/g' /etc/prosody/prosody.cfg.lua \
