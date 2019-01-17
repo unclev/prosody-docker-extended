@@ -5,6 +5,8 @@ This project was inspired by the [official Prosody Docker](https://github.com/pr
 
 ## Building
 
+First, clone this repository and change directory into `prosody-docker-extended/`. Then run:
+
 ```
 docker build --build-arg PROSODY_VERSION="" --rm=true -t unclev/prosody-docker-extended:stable .
 ```
