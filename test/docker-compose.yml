@@ -1,0 +1,16 @@
+xmpp_server:
+  image: unclev/prosody-docker-extended:stable
+  #build: ./build.local
+  restart: unless-stopped
+  hostname: unclev.ru
+  #ports:
+  #  - 5222:5222
+  #  - 5269:5269
+  #  - 5347:5347
+  #  - 5280:5280
+  #  - 5281:5281
+  #  - 5380:80
+  volumes:
+    - './config:/etc/prosody'
+    - './data:/var/lib/prosody'
+
