@@ -11,7 +11,7 @@ First, clone this repository and change directory into `prosody-docker-extended/
 docker build --build-arg PROSODY_VERSION="" --rm=true -t unclev/prosody-docker-extended:stable .
 ```
 
-Where PROSODY_VERSION can also be `-trunk`, `-0.10`, `-0.9` for nightly builds.
+Where PROSODY_VERSION can also be `-trunk`, `-0.11`, `-0.10`, `-0.9` for nightly builds.
 
 It is available at [Docker Hub](https://hub.docker.com/r/unclev/prosody-docker-extended/).
 The tags are: latest, 0.10, 0.9, for prosody-trunk, prosody-0.10, prosody-0.9 accordingly, "stable" tag for prosody with no version specified (as per above).
