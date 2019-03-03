@@ -6,7 +6,7 @@ This project was inspired by the [official Prosody Docker](https://github.com/pr
 ## Building
 
 ```
-docker build --rm=true -t unclev/prosody-docker-extended:0.10 .
+docker build --rm=true -t unclev/prosody-docker-extended:0.11 .
 ```
 
 It is available at [Docker Hub](https://hub.docker.com/r/unclev/prosody-docker-extended/).
@@ -77,7 +77,7 @@ docker run -d \
    -v /srv/prosody/log:/var/log/prosody \
    -v /srv/prosody/modules/community:/usr/lib/prosody/modules-community \
    -v /srv/prosody/modules/custom:/usr/lib/prosody/modules-custom \
-   unclev/prosody-docker-extended:0.10
+   unclev/prosody-docker-extended:0.11
 ```
 
 docker-compose.yml (v1) with PostgreSQL backend:
@@ -93,7 +93,7 @@ sql:
     - '/srv/prosody/db/postgresql:/var/lib/postgresql/prosody'
 
 xmpp_server:
-  image: unclev/prosody-docker-extended:0.10
+  image: unclev/prosody-docker-extended:0.11
   restart: unless-stopped
   hostname: shakespeare.lit
   ports:

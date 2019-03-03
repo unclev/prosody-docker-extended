@@ -5,7 +5,7 @@ COPY ./entrypoint.sh /usr/bin/entrypoint.sh
 COPY ./update-modules.sh /usr/bin/update-modules
 COPY ./check_prosody_update.sh /usr/bin/check_prosody_update
 #ARG PROSODY_VERSION
-ENV PROSODY_VERSION="-0.10" \
+ENV PROSODY_VERSION="-0.11" \
     PUID=${PUID:-1000} PGID=${PGID:-1000} \
     PROSODY_MODULES=/usr/lib/prosody/modules-community \
     CUSTOM_MODULES=/usr/lib/prosody/modules-custom
