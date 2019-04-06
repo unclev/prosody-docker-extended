@@ -3,6 +3,16 @@
 Docker image building system for the Prosody XMPP server with Community Modules and telnet console.
 This project was inspired by the [official Prosody Docker](https://github.com/prosody/prosody-docker/) and particularly to overcome this issue prosody/prosody-docker#29.
 
+## Upgrade notes
+
+As per [Prosody 0.11.0 release notes](https://prosody.im/doc/release/0.11.0):
+
+> ## Upgrade notes
+>
+> There are some changes that users running previous versions of Prosody should be aware of:
+>
+>Note: This release may not work with SQL, LDAP, Cyrus SASL or libevent on some distributions due to missing libraries. Please see the [Lua 5.2 section](https://prosody.im/doc/release/0.11.0#lua-5.2) for more information. Alternatively, use the prosody-0.10 package to stay on Prosody 0.10.x with Lua 5.1.
+
 ## Building
 
 ```
