@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:disco
 MAINTAINER Victor Kulichenko <onclev@gmail.com>
 COPY prosody.list /etc/apt/sources.list.d/
 COPY ./entrypoint.sh /usr/bin/entrypoint.sh
