@@ -3,7 +3,7 @@
 Docker image building system for the Prosody XMPP server with Community Modules and telnet console.
 This project was inspired by the [official Prosody Docker](https://github.com/prosody/prosody-docker/) and particularly to overcome this issue prosody/prosody-docker#29.
 
-**This is an experimantal build of Prosody ubuntu 18.10 (cosmic) in ubuntu 19.04 (disco) for testing lua-ldap support**
+**This is an experimantal docker build of Prosody ubuntu 18.10 (cosmic) in ubuntu 19.04 (disco) for testing lua-ldap support**
 
 ## Upgrade notes
 
