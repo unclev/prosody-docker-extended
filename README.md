@@ -1,9 +1,11 @@
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg) [![](https://img.shields.io/docker/stars/unclev/prosody-docker-extended.svg)](https://hub.docker.com/r/unclev/prosody-docker-extended 'DockerHub') [![](https://img.shields.io/docker/pulls/unclev/prosody-docker-extended.svg)](https://hub.docker.com/r/unclev/prosody-docker-extended 'DockerHub')
+
 # prosody-docker-extended
+
 Docker image building system for the Prosody XMPP server with Community Modules and telnet console.
 This project was inspired by the [official Prosody Docker](https://github.com/prosody/prosody-docker/) and particularly to overcome this issue prosody/prosody-docker#29.
 
-**This is an experimantal docker build of Prosody ubuntu 18.10 (cosmic) in ubuntu 19.04 (disco) for testing lua-ldap support**
+This version is based on _Ubuntu 19.04 (disco)_.
 
 ## Upgrade notes
 
@@ -16,6 +18,8 @@ As per [Prosody 0.11.0 release notes](https://prosody.im/doc/release/0.11.0):
 >Note: This release may not work with SQL, LDAP, Cyrus SASL or libevent on some distributions due to missing libraries. Please see the [Lua 5.2 section](https://prosody.im/doc/release/0.11.0#lua-5.2) for more information. Alternatively, use the prosody-0.10 package to stay on Prosody 0.10.x with Lua 5.1.
 
 ## Building
+
+First, clone this repository and change directory into `prosody-docker-extended/`. Then run:
 
 ```
 docker build --rm=true -t unclev/prosody-docker-extended:0.11-disco .

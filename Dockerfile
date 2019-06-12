@@ -16,7 +16,7 @@ RUN groupadd -g $PGID -r prosody && useradd -b /var/lib -m -g $PGID -u $PUID -r 
 ADD https://prosody.im/files/prosody-debian-packages.key /root/key
 RUN set -x \
  && apt-get update -qq && apt-get install -qy gnupg \
- && echo "deb http://packages.prosody.im/debian cosmic main" > /etc/apt/sources.list.d/prosody.list \
+ && echo "deb http://packages.prosody.im/debian disco main" > /etc/apt/sources.list.d/prosody.list \
  && apt-key add /root/key && rm /root/key \
  && apt-get update -qq \
  && apt-get install -qy telnet \
