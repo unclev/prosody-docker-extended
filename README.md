@@ -1,12 +1,18 @@
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg) [![](https://img.shields.io/docker/stars/unclev/prosody-docker-extended.svg)](https://hub.docker.com/r/unclev/prosody-docker-extended 'DockerHub') [![](https://img.shields.io/docker/pulls/unclev/prosody-docker-extended.svg)](https://hub.docker.com/r/unclev/prosody-docker-extended 'DockerHub')
+
 # prosody-docker-extended
+
 Docker image building system for the Prosody XMPP server with Community Modules and telnet console.
 This project was inspired by the [official Prosody Docker](https://github.com/prosody/prosody-docker/) and particularly to overcome this issue prosody/prosody-docker#29.
 
+This version is based on _Ubuntu 19.04 (disco)_.
+
 ## Building
 
+First, clone this repository and change directory into `prosody-docker-extended/`. Then run:
+
 ```
-docker build --rm=true -t unclev/prosody-docker-extended .
+docker build --rm=true -t unclev/prosody-docker-extended:trunk-disco .
 ```
 
 It is available at [Docker Hub](https://hub.docker.com/r/unclev/prosody-docker-extended/).
@@ -14,6 +20,7 @@ It is available at [Docker Hub](https://hub.docker.com/r/unclev/prosody-docker-e
 The [Docker Hub](https://hub.docker.com/r/unclev/prosody-docker-extended/) images are now re-builds within an hour after each nightly build in the official Prosody deb [repository](https://prosody.im/download/package_repository).
 
 ## prosody-docker-extended features
+
 ### Ports
 
 The image exposes the following ports to the docker host:

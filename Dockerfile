@@ -1,6 +1,5 @@
-FROM ubuntu:xenial
+FROM ubuntu:disco
 MAINTAINER Victor Kulichenko <onclev@gmail.com>
-COPY prosody.list /etc/apt/sources.list.d/
 COPY ./entrypoint.sh /usr/bin/entrypoint.sh
 COPY ./update-modules.sh /usr/bin/update-modules
 COPY ./check_prosody_update.sh /usr/bin/check_prosody_update
@@ -16,6 +15,8 @@ RUN groupadd -g $PGID -r prosody && useradd -b /var/lib -m -g $PGID -u $PUID -r 
 # install prosody, mercurial, and recommended dependencies, prosody-modules locations, tweak and preserve config
 ADD https://prosody.im/files/prosody-debian-packages.key /root/key
 RUN set -x \
+ && apt-get update -qq && apt-get install -qy gnupg \
+ && echo "deb http://packages.prosody.im/debian disco main" > /etc/apt/sources.list.d/prosody.list \
  && apt-key add /root/key && rm /root/key \
  && apt-get update -qq \
  && apt-get install -qy telnet \
