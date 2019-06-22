@@ -1,4 +1,3 @@
 #!/bin/bash
-apt-get update -qq
-apt-get -u -V -s upgrade | grep "Inst prosody${PROSODY_VERSION}"
+( apt update -qq && apt list --upgradable ) 2> /dev/null | grep prosody
 
