@@ -3,6 +3,8 @@
 Docker image building system for the Prosody XMPP server with Community Modules and telnet console.
 This project was inspired by the [official Prosody Docker](https://github.com/prosody/prosody-docker/) and particularly to overcome this issue prosody/prosody-docker#29.
 
+**This branch is based on Ubuntu 20.04 _focal_. See the issue #15 on the currently supported versions**.
+
 ## Building
 
 ```

@@ -1,9 +1,6 @@
-FROM ubuntu:xenial
-MAINTAINER Victor Kulichenko <onclev@gmail.com>
-COPY prosody.list /etc/apt/sources.list.d/
-COPY ./entrypoint.sh /usr/bin/entrypoint.sh
-COPY ./update-modules.sh /usr/bin/update-modules
-COPY ./check_prosody_update.sh /usr/bin/check_prosody_update
+FROM ubuntu:focal
+LABEL maintainer="Victor Kulichenko <onclev@gmail.com>"
+COPY ./root/ /
 #ARG PROSODY_VERSION
 ENV PROSODY_VERSION="-trunk" \
     PUID=${PUID:-1000} PGID=${PGID:-1000} \
@@ -14,15 +11,18 @@ ENV PROSODY_VERSION="-trunk" \
 RUN groupadd -g $PGID -r prosody && useradd -b /var/lib -m -g $PGID -u $PUID -r -s /bin/bash prosody
 
 # install prosody, mercurial, and recommended dependencies, prosody-modules locations, tweak and preserve config
-ADD https://prosody.im/files/prosody-debian-packages.key /root/key
 RUN set -x \
- && apt-key add /root/key && rm /root/key \
+ && apt-get update -qq \
+ && apt-get install -qy gnupg2 wget \
+ && wget https://prosody.im/files/prosody-debian-packages.key -O- | apt-key add - \
+ && echo "deb https://packages.prosody.im/debian $(sed -n 's/DISTRIB_CODENAME=\(.*\)/\1/p' /etc/lsb-release) main" \
+         > /etc/apt/sources.list.d/prosody.list \
  && apt-get update -qq \
  && apt-get install -qy telnet \
     apt-utils mercurial lua-sec lua-event lua-zlib lua-ldap \
     lua-dbi-mysql lua-dbi-postgresql lua-dbi-sqlite3 lua-bitop \
     prosody-migrator${PROSODY_VERSION} prosody${PROSODY_VERSION} \
- && apt-get purge apt-utils -qy \
+ && apt autoremove -qy --purge apt-utils gnupg2 wget \
  && apt-get clean && rm -Rf /var/lib/apt/lists \
  && sed -i -e '1s/^/daemonize = false;\n/' -e 's/daemonize = true/-- daemonize = true/g' /etc/prosody/prosody.cfg.lua \
  && perl -i -pe '$_ = qq[\n-- These paths are searched in the order specified, and before the default path\nplugin_paths = { \"$ENV{CUSTOM_MODULES}\", \"$ENV{PROSODY_MODULES}\" }\n\n$_] if $_ eq qq[modules_enabled = {\n]' \
