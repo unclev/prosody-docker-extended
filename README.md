@@ -62,6 +62,30 @@ plugin_paths = { "/usr/lib/prosody/modules-custom", "/usr/lib/prosody/modules-co
 ### Prosody user
 There is a user with uid=1000(prosody) gid=1000(prosody) groups=1000(prosody) in the __prosody-docker-extended__ image.
 
+#### Ownership issue
+
+As _Prosody_ starts in behalf of the `prosody` user (1000:1000) inside the container, it expects the configured directories are owned by `prosody`.
+
+However, if volumes do no exist, they are creaded by docker as `root` user, and this causes issues (#6, #7, #16).
+
+As a **workaround** it is suggested creating the directories you bind before `docker run -d ... unclev/prosody-docker-extended`.
+
+So for the [example](#examples) below it is
+
+```bash
+sudo -u '#1000' -g '#1000' mkdir -pv /srv/prosody/{config,data,log,modules/community,modules/custom}
+```
+
+If you have already had directories created, - change their ownership:
+
+```bash
+sudo chown -Rv 1000:1000 /srv/prosody
+```
+
+In Kubernetes you can use `fsGroup` and make it writable. (See [this Stack Overflow answer](https://stackoverflow.com/a/46769504)).
+
+Ownership is not an issue when creating volumes those are not bind mounts.
+
 ### Adding a jabber user at startup
 For compatibility with prosody/prosody-docker a user can be created by using environment variables `LOCAL`, `DOMAIN`, and `PASSWORD`. This performs the following action on startup:
 > prosodyctl register *local* *domain* *password*
@@ -69,6 +93,9 @@ For compatibility with prosody/prosody-docker a user can be created by using env
 Prosody will not check the user exists before running the command (i.e. existing users will be overwritten). It is expected that [mod_admin_adhoc](http://prosody.im/doc/modules/mod_admin_adhoc) will then be in place for managing users (and the server).
 
 ### Examples
+
+Before you start, - [create the directories](#ownership-issue) you want to bind.
+
 ```bash
 docker run -d \
    --name prosody_xmpp_server \
@@ -84,7 +111,7 @@ docker run -d \
    -v /srv/prosody/log:/var/log/prosody \
    -v /srv/prosody/modules/community:/usr/lib/prosody/modules-community \
    -v /srv/prosody/modules/custom:/usr/lib/prosody/modules-custom \
-   unclev/prosody-docker-extended:0.10
+   unclev/prosody-docker-extended
 ```
 
 docker-compose.yml (v1) with PostgreSQL backend:
